@@ -1,0 +1,60 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: traefik_default
+
+services:
+  php:
+    restart: unless-stopped
+    build:
+      context: .
+      args:
+        UID: 1000
+        GID: 1000
+    working_dir: /var/www/html
+    volumes:
+      - "./:/var/www/html"
+      - "~/.ssh:/var/www/.ssh"
+      - "~/.composer:/var/www/.composer"
+      - "/usr/local/bin/composer:/usr/local/bin/composer"
+      - "/usr/bin/git:/usr/bin/git"
+    labels:
+      - "traefik.frontend.rule=Host:laravel.test"
+      - "traefik.enable=true"
+    environment:
+      TZ: ${TZ:-Asia/Seoul}
+
+    networks:
+      default:
+        aliases:
+          - laravel.test
+    depends_on:
+      - mysql
+
+  mysql:
+    restart: unless-stopped
+    image: mysql:5.7
+    user: 1000:1000
+    environment:
+      TZ: ${TZ:-Asia/Seoul}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+    healthcheck:
+      test: "mysqladmin ping --silent"
+      timeout: 3s
+      interval: 1s
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+
+  redis:
+    restart: unless-stopped
+    image: redis
+    labels:
+      - "traefik.enable=false"
