@@ -33,5 +33,6 @@ ENV GID ${GID:-1000}
 RUN usermod -u $UID www-data
 RUN groupmod -g $GID www-data
 RUN chmod +s /usr/sbin/apache2
+RUN a2enmod rewrite
 USER www-data
 CMD apachectl -D FOREGROUND
