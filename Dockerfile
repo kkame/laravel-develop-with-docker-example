@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
@@ -12,9 +12,9 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install exif
-RUN docker-php-ext-install hash
+#RUN docker-php-ext-install hash
 RUN docker-php-ext-install json
-RUN docker-php-ext-install mbstring
+#RUN docker-php-ext-install mbstring
 #RUN docker-php-ext-install intl
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install tokenizer

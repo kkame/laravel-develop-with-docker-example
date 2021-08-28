@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,8 +13,6 @@
 |
 */
 
-use App\User;
-
 Route::get('/', function () {
-    return view('welcome', ['users' => User::all()]);
+    return view('welcome');
 });
