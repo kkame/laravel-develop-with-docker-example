@@ -6,7 +6,7 @@
 
 ### Installation
 
-이 예제는 [traefik-develop-with-docker-example](https://github.com/kkame/traefik-develop-with-docker-example)을 이미 구축하였다고 가정하고 시작됩니다.
+이 예제는 [traefik-develop-with-docker-example](https://github.com/kkame/traefik-develop-with-docker-example) 을 이미 구축하였다고 가정하고 시작됩니다.
 
 만약 도커에 Traefik이 설치되어 있지 않으신 분은 해당 레포지터리를 통해 Traefik을 먼저 설치하고 시작해주세요
 
@@ -36,6 +36,13 @@ cp docker-compose.sample.yml docker-compose.yml
 ```
 이 파일은 설명할 내용이 많아 해당 yml파일에 최대한 주석을 추가 하였습니다. 해당 파일을 직접 확인해주세요.
 
+#### 2. mysql 데이터 폴더 생성
+
+만약 docker-compose.yml 에서 mysql데이터가 저장될 경로를 다른 곳으로 하셨다면 해당하는 경로에 맞게 폴더를 생성해주세요. 
+
+```bash
+mkdir storage/mysql
+```
 
 ### Usage 
 
